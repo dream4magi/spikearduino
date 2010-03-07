@@ -1,0 +1,9 @@
+SW1 PIN2 output
+SW2 PIN3 output
+
+"1": SW1 ON
+"2": SW1 OFF
+"3": SW2 ON
+"4": SW2 OFF
+"5": ALL ON
+"6": ALL OFF
