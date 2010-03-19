@@ -7,6 +7,7 @@ const int DETECT_ON_PIN = 52;
 char BUFFER[100];
 int BUFFER_INDEX = 0;
 char TMP;
+int ALL_ON = 0;
 
 
 void setup()  { 
@@ -35,15 +36,23 @@ void setup()  {
             
     }
     
-    if (digitalRead(DETECT_ON_PIN)==HIGH){
-          for (int i = MIN_PORT;i<MAX_PORT+1;i++){
-        int pin = (i - (MIN_PORT-MIN_PIN));
-        digitalWrite(pin, HIGH); 
-        delay(2);
-      }
-    }
+
 } 
 void loop()  {
+
+      if ((digitalRead(DETECT_ON_PIN)==HIGH)&&(ALL_ON==0)){
+          for (int i = MIN_PORT;i<MAX_PORT+1;i++){
+            int pin = (i - (MIN_PORT-MIN_PIN));
+            digitalWrite(pin, HIGH); 
+            delay(2);
+          }
+          ALL_ON = 1;
+      }else{
+        ALL_ON = 0;
+      }
+
+  
+  
   if (Serial.available() > 0) {
     while(1){
       if (Serial.available() > 0) {
