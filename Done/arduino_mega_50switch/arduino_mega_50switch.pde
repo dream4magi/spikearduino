@@ -3,6 +3,7 @@ const int MIN_PIN = 2;
 const int MAX_PIN = 51;
 const int MIN_PORT = 1;
 const int MAX_PORT = 50;
+const int DETECT_ON_PIN = 52;
 char BUFFER[100];
 int BUFFER_INDEX = 0;
 char TMP;
@@ -10,6 +11,11 @@ char TMP;
 
 void setup()  { 
     Serial.begin(115200);
+    
+    
+    pinMode(DETECT_ON_PIN, INPUT);
+    digitalWrite(DETECT_ON_PIN,LOW);
+    
     
     for(int i = MIN_PIN ; i<MAX_PIN+1;i++){
       pinMode(i, OUTPUT);
@@ -29,6 +35,13 @@ void setup()  {
             
     }
     
+    if (digitalRead(DETECT_ON_PIN)==HIGH){
+          for (int i = MIN_PORT;i<MAX_PORT+1;i++){
+        int pin = (i - (MIN_PORT-MIN_PIN));
+        digitalWrite(pin, HIGH); 
+        delay(2);
+      }
+    }
 } 
 void loop()  {
   if (Serial.available() > 0) {

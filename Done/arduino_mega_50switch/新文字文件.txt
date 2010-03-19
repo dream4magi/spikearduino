@@ -20,5 +20,11 @@ SPECIAL:
  A01Z = ALL PORT ON
 
 
+
+
+IF PIN52 = HIGH
+Turn all on
+
+
 2010/02/17
 SPIKE LEE
