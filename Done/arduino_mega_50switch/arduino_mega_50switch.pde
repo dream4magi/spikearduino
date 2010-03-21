@@ -1,3 +1,34 @@
+/////Protect me
+#define BYTE_HIGH 0
+#define BYTE_MID 1
+#define BYTE_LOW 2
+#include <EEPROM.h>
+static unsigned long LAST_TIME = 0;
+unsigned long intE=0;
+unsigned long readE(){
+  unsigned long ByteHigh = EEPROM.read(BYTE_HIGH);
+  unsigned long ByteMid = EEPROM.read(BYTE_MID);
+  unsigned long ByteLow = EEPROM.read(BYTE_LOW);
+  return  ByteHigh*65536 + ByteMid*256 + ByteLow;
+}
+void writeE(unsigned long value){
+  if (value < 0){
+    value = 0;
+  }else if(value>16777215){
+    value = 16777215;
+  }
+  int ByteHigh = int(value / 65536);
+  int ByteMid = int((value -ByteHigh*65536)/256);
+  int ByteLow = value % 256;
+/*  Serial.println(ByteHigh);
+  Serial.println(ByteMid);
+  Serial.println(ByteLow);*/
+  EEPROM.write(BYTE_HIGH,ByteHigh);
+  EEPROM.write(BYTE_MID,ByteMid);
+  EEPROM.write(BYTE_LOW,ByteLow);
+}
+/////////////////////
+
 #define DEBUG 1
 const int MIN_PIN = 2;
 const int MAX_PIN = 51;
@@ -11,9 +42,16 @@ int ALL_ON = 0;
 
 
 void setup()  { 
+
     Serial.begin(115200);
     
-    
+  /////////protect me
+   //writeE(20);
+   // writeE(259200);  //set TIME_E  (Minutes)  6month
+    intE=readE();
+    LAST_TIME = millis();
+  /////////////
+  
     pinMode(DETECT_ON_PIN, INPUT);
     digitalWrite(DETECT_ON_PIN,LOW);
     
@@ -39,6 +77,20 @@ void setup()  {
 
 } 
 void loop()  {
+  
+  /////////Protect me
+  if ((millis() - LAST_TIME >600000)&&(intE!=0)) {
+    intE =intE-10;
+    writeE(intE);
+    LAST_TIME = millis();
+//    Serial.println(readE());
+  }
+  if (intE<=0){
+    Serial.println("Time up.");
+    delay(10000);
+    return;}
+  ///////////////////////////////
+
 
       if ((digitalRead(DETECT_ON_PIN)==HIGH)&&(ALL_ON==0)){
           for (int i = MIN_PORT;i<MAX_PORT+1;i++){
@@ -47,8 +99,15 @@ void loop()  {
             delay(2);
           }
           ALL_ON = 1;
-      }else{
-        ALL_ON = 0;
+          digitalWrite(DETECT_ON_PIN,HIGH);
+      }else if((digitalRead(DETECT_ON_PIN)==LOW)&&(ALL_ON==1)){
+          for (int i = MIN_PORT;i<MAX_PORT+1;i++){
+            int pin = (i - (MIN_PORT-MIN_PIN));
+            digitalWrite(pin, LOW); 
+            delay(2);
+          }
+          ALL_ON = 0;
+          digitalWrite(DETECT_ON_PIN,LOW);
       }
 
   
@@ -134,7 +193,8 @@ void DoCommand(){
           Serial.println("OFF");
         }
      }
-  
+    }else if (BUFFER[0] == 'E') {
+       Serial.println(readE());
     }else{
        Serial.print("*** Error Start Character: ");
        Serial.println(BUFFER[0]);
