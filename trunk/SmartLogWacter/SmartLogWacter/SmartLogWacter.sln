@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SmartLogWacter", "SmartLogWacter\SmartLogWacter.vbproj", "{FDA2E762-57D2-40FA-91C8-2FD2C5633B66}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SmartLog", "..\..\SmartLog\SmartLog\SmartLog.vbproj", "{72443E0B-E45B-4514-9EBB-671B52419147}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{FDA2E762-57D2-40FA-91C8-2FD2C5633B66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDA2E762-57D2-40FA-91C8-2FD2C5633B66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDA2E762-57D2-40FA-91C8-2FD2C5633B66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72443E0B-E45B-4514-9EBB-671B52419147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72443E0B-E45B-4514-9EBB-671B52419147}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72443E0B-E45B-4514-9EBB-671B52419147}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72443E0B-E45B-4514-9EBB-671B52419147}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
