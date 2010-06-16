@@ -1,24 +1,28 @@
 ﻿Imports System.Threading
 Imports System.Threading.ThreadPool
 Imports System.Collections.ObjectModel
+Public Enum LogType
+    Info = 0
+    Debug = 1
+    Warn = 2
+    [Error] = 3
+    Fatal = 4
+End Enum
 
+Public Class [Const]
+    Public Const DATE_FORMAT As String = "yyyyMMdd"
+    Public Const TIME_FORMAT As String = "yyyy-MM-dd HH:mm:ss.fff"
+    Public Const YEARMONTH_FORMAT As String = "yyyyMM"
+End Class
 
 Public Class SmartLog
-    Enum LogType
-        Info = 0
-        Debug = 1
-        Warn = 2
-        [Error] = 3
-        Fatal = 4
-    End Enum
+
 
     Const DEFAULT_LOG_FOLDER As String = ".\SmartLog"
     Const DEFAULT_APP_NAME As String = "App Name"
     Const DEFAULT_EXTENTION As String = "log"
     Const DEFAULT_EXPIRE_DAYS As Integer = 90
-    Private Const DATE_FORMAT As String = "yyyyMMdd"
-    Private Const TIME_FORMAT As String = "yyyy/MM/dd HH:mm:ss.fff"
-    Private Const YEARMONTH_FORMAT As String = "yyyyMM"
+
 
 
 
@@ -214,19 +218,19 @@ Public Class SmartLog
         If [Date] = Nothing Then
             [Date] = Now
         End If
-        Return [Date].ToString(DATE_FORMAT)
+        Return [Date].ToString([Const].DATE_FORMAT)
     End Function
     Private Shared Function getNowTime(Optional ByVal [Date] As Date = Nothing) As String
         If [Date] = Nothing Then
             [Date] = Now
         End If
-        Return [Date].ToString(TIME_FORMAT)
+        Return [Date].ToString([Const].TIME_FORMAT)
     End Function
     Private Shared Function getYearMonth(Optional ByVal [Date] As Date = Nothing) As String
         If [Date] = Nothing Then
             [Date] = Now
         End If
-        Return [Date].ToString(YEARMONTH_FORMAT)
+        Return [Date].ToString([Const].YEARMONTH_FORMAT)
     End Function
 
 
