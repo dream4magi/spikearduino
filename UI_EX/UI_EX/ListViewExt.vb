@@ -15,6 +15,12 @@ Public Class ListViewExt
     Friend WithEvents CopyCheckedRows As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CopyCheckedRowsWithColumeName As System.Windows.Forms.ToolStripMenuItem
 
+    Friend WithEvents MarkRedSelectedRows As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents MarkYellowSelectedRows As System.Windows.Forms.ToolStripMenuItem
+
+
+    Friend WithEvents UnMarkSelectedRows As System.Windows.Forms.ToolStripMenuItem
+
     Public Sub New()
 
 
@@ -24,6 +30,10 @@ Public Class ListViewExt
         Me.CopySelectedRowsWithColumeName = New System.Windows.Forms.ToolStripMenuItem
         Me.CopyCheckedRows = New System.Windows.Forms.ToolStripMenuItem
         Me.CopyCheckedRowsWithColumeName = New System.Windows.Forms.ToolStripMenuItem
+        Me.MarkRedSelectedRows = New System.Windows.Forms.ToolStripMenuItem
+        Me.MarkYellowSelectedRows = New System.Windows.Forms.ToolStripMenuItem
+        Me.UnMarkSelectedRows = New System.Windows.Forms.ToolStripMenuItem
+
         Me.cmsCopy.SuspendLayout()
         Me.SuspendLayout()
 
@@ -31,7 +41,7 @@ Public Class ListViewExt
         '
         'cmsCopy
         '
-        Me.cmsCopy.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CopySelectedRows, Me.CopySelectedRowsWithColumeName, Me.CopyCheckedRows, Me.CopyCheckedRowsWithColumeName})
+        ' Me.cmsCopy.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CopySelectedRows, Me.CopySelectedRowsWithColumeName, Me.CopyCheckedRows, Me.CopyCheckedRowsWithColumeName})
         Me.cmsCopy.Name = "ContextMenuStrip1"
         Me.cmsCopy.Size = New System.Drawing.Size(306, 48)
         '
@@ -60,8 +70,22 @@ Public Class ListViewExt
         Me.CopyCheckedRowsWithColumeName.Size = New System.Drawing.Size(305, 22)
         Me.CopyCheckedRowsWithColumeName.Text = "Copy Checked Rows With Column Name"
 
+        Me.MarkRedSelectedRows.Name = "MarkRed"
+        Me.MarkRedSelectedRows.Size = New System.Drawing.Size(305, 22)
+        Me.MarkRedSelectedRows.Text = "Mark Red"
+
+        Me.MarkYellowSelectedRows.Name = "MarkYellow"
+        Me.MarkYellowSelectedRows.Size = New System.Drawing.Size(305, 22)
+        Me.MarkYellowSelectedRows.Text = "Mark Yellow"
+
+        Me.UnMarkSelectedRows.Name = "UnMarkColor"
+        Me.UnMarkSelectedRows.Size = New System.Drawing.Size(305, 22)
+        Me.UnMarkSelectedRows.Text = "Unmark"
+
         Me.cmsCopy.ResumeLayout(False)
         Me.ResumeLayout(False)
+
+        handleRightMenuUI()
     End Sub
 
  
@@ -231,9 +255,7 @@ Public Class ListViewExt
         Return getCells(RowKeyText, ColIndex, ListViewItems, KeyColIndex)
     End Function
     Public Function getCells(ByVal RowKeyText As String, ByVal ColIndex As Integer, ByVal ListViewItems As ListView.CheckedListViewItemCollection, Optional ByVal KeyColIndex As Integer = -1) As List(Of ListViewItem.ListViewSubItem)
-
         Dim lstCell As New List(Of ListViewItem.ListViewSubItem)
-
         If KeyColIndex <= Me.Columns.Count - 1 Then
             For Each row As ListViewItem In ListViewItems
                 If isWantedRow(row, RowKeyText, KeyColIndex) Then
@@ -329,11 +351,105 @@ Public Class ListViewExt
     End Function
 #End Region
 
+    Public Function MarkColor(ByVal Items As System.Windows.Forms.ListView.SelectedListViewItemCollection, ByVal color As System.Drawing.Color) As Boolean
+        If Items Is Nothing Then
+            Return False
+        End If
+        Dim isError As Boolean = False
 
+        For Each lvwItem As ListViewItem In Items
+            If Me.Items.Contains(lvwItem) Then
+                lvwItem.BackColor = color
+            Else
+                isError = True
+            End If
+        Next
 
+        Return Not isError
+    End Function
+    Public Function MarkColor(ByVal Items As System.Windows.Forms.ListView.ListViewItemCollection, ByVal color As System.Drawing.Color) As Boolean
+        If Items Is Nothing Then
+            Return False
+        End If
+        Dim isError As Boolean = False
+
+        For Each lvwItem As ListViewItem In Items
+            If Me.Items.Contains(lvwItem) Then
+                lvwItem.BackColor = color
+            Else
+                isError = True
+            End If
+        Next
+
+        Return Not isError
+    End Function
+    Public Function MarkColor(ByVal Items() As ListViewItem, ByVal color As System.Drawing.Color) As Boolean
+        If Items Is Nothing Then
+            Return False
+        End If
+        Dim isError As Boolean = False
+
+        For Each lvwItem As ListViewItem In Items
+            If Me.Items.Contains(lvwItem) Then
+                lvwItem.BackColor = color
+            Else
+                isError = True
+            End If
+        Next
+
+        Return Not isError
+    End Function
+    Public Function UnMarkColor(ByVal Items As System.Windows.Forms.ListView.SelectedListViewItemCollection) As Boolean
+        If Items Is Nothing Then
+            Return False
+        End If
+        Dim isError As Boolean = False
+
+        For Each lvwItem As ListViewItem In Items
+            If Me.Items.Contains(lvwItem) Then
+                lvwItem.BackColor = Nothing
+            Else
+                isError = True
+            End If
+        Next
+
+        Return Not isError
+    End Function
+    Public Function UnMarkColor(ByVal Items As System.Windows.Forms.ListView.ListViewItemCollection) As Boolean
+        If Items Is Nothing Then
+            Return False
+        End If
+        Dim isError As Boolean = False
+
+        For Each lvwItem As ListViewItem In Items
+            If Me.Items.Contains(lvwItem) Then
+                lvwItem.BackColor = Nothing
+            Else
+                isError = True
+            End If
+        Next
+
+        Return Not isError
+    End Function
+    Public Function UnMarkColor(ByVal Items() As ListViewItem) As Boolean
+        If Items Is Nothing Then
+            Return False
+        End If
+        Dim isError As Boolean = False
+
+        For Each lvwItem As ListViewItem In Items
+            If Me.Items.Contains(lvwItem) Then
+                lvwItem.BackColor = Nothing
+            Else
+                isError = True
+            End If
+        Next
+
+        Return Not isError
+    End Function
 #Region "LVW right click event"
     Private Sub ListViewExt_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Me.MouseUp
-        If p_AllowRightClickCopy AndAlso e.Button = Windows.Forms.MouseButtons.Right Then
+        If (p_AllowRightClickCopy Or p_AllowMark) AndAlso e.Button = Windows.Forms.MouseButtons.Right Then
             Me.cmsCopy.Show(Me, e.Location)
         End If
     End Sub
@@ -349,6 +465,10 @@ Public Class ListViewExt
                 Me.cmsCopy.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CopySelectedRows, Me.CopySelectedRowsWithColumeName})
             End If
         End If
+        If p_AllowMark Then
+            Me.cmsCopy.Items.AddRange(New System.Windows.Forms.ToolStripItem() {MarkRedSelectedRows, MarkYellowSelectedRows, UnMarkSelectedRows})
+        End If
+
     End Sub
 #End Region
 
@@ -369,9 +489,36 @@ Public Class ListViewExt
     Private Sub CopyCheckedRowsWithColumeName_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles CopyCheckedRowsWithColumeName.Click
         CopyCheckedRowsTextWithColumnName()
     End Sub
+    Private Sub MarkRedSelectedRows_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles MarkRedSelectedRows.Click
+        If Me.SelectedItems.Count > 0 Then
+            MarkColor(Me.SelectedItems, Color.LightCoral)
+        End If
+    End Sub
+
+    Private Sub MarkYellowSelectedRows_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles MarkYellowSelectedRows.Click
+        If Me.SelectedItems.Count > 0 Then
+            MarkColor(Me.SelectedItems, Color.Yellow)
+        End If
+    End Sub
+    Private Sub UnMarkSelectedRows_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles UnMarkSelectedRows.Click
+        If Me.SelectedItems.Count > 0 Then
+            UnMarkColor(Me.SelectedItems)
+        End If
+    End Sub
+
 #End Region
 
 #Region "Properties"
+    Private p_AllowMark As Boolean = True
+    Property AllowMark() As Boolean
+        Get
+            Return p_AllowMark
+        End Get
+        Set(ByVal value As Boolean)
+            p_AllowMark = value
+            handleRightMenuUI()
+        End Set
+    End Property
     Shadows Property CheckBoxes() As Boolean
         Get
             Return MyBase.CheckBoxes
@@ -400,6 +547,8 @@ Public Class ListViewExt
         End Set
     End Property
 #End Region
+
+
 
 
 
