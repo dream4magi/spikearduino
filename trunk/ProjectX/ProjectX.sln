@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ProjectX", "ProjectX\ProjectX.vbproj", "{820C4AF4-AC94-4279-B32E-0FDD1523F80D}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UI_EX", "..\..\ArduinoProject\UI_EX\UI_EX\UI_EX.vbproj", "{A7EE0BFA-6A0B-4AD6-89C1-C31A118AAD8E}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UI_EX", "..\ArduinoProject\UI_EX\UI_EX\UI_EX.vbproj", "{A7EE0BFA-6A0B-4AD6-89C1-C31A118AAD8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
