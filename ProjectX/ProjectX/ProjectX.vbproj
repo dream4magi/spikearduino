@@ -110,7 +110,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ArduinoProject\UI_EX\UI_EX\UI_EX.vbproj">
+    <ProjectReference Include="..\..\ArduinoProject\UI_EX\UI_EX\UI_EX.vbproj">
       <Project>{A7EE0BFA-6A0B-4AD6-89C1-C31A118AAD8E}</Project>
       <Name>UI_EX</Name>
     </ProjectReference>
