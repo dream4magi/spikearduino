@@ -1,0 +1,15 @@
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\bin\Debug\ProjectX.exe
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\bin\Debug\ProjectX.pdb
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\bin\Debug\ProjectX.xml
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\bin\Debug\ProjectX.exe.CodeAnalysisLog.xml
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\bin\Debug\ProjectX.exe.lastcodeanalysissucceeded
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\bin\Debug\UI_EX.dll
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\bin\Debug\UI_EX.pdb
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\bin\Debug\UI_EX.xml
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\obj\Debug\ProjectX.frmMain.resources
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\obj\Debug\ProjectX.Resources.resources
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\obj\Debug\ProjectX.vbproj.GenerateResource.Cache
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\obj\Debug\ProjectX.exe
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\obj\Debug\ProjectX.xml
+C:\Users\SPK.L\Desktop\ProjectX\ProjectX\ProjectX\obj\Debug\ProjectX.pdb
